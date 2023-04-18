@@ -17,7 +17,7 @@ This dataset is downloaded from [here](https://www.kaggle.com/datasets/rkiattisa
 
 ## Research question
 
-The purpose of this analysis is to investigate whether parental educational attainment has an impact on high school students' mathematics achievement measured by math scores of a standardized test.
+The purpose of this analysis is to investigate whether the highest level of parental educational attainment has an effect on high school students' mathematics achievement measured by math scores of a standardized test.
 
 ## Folders
 

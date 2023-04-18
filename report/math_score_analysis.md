@@ -1,5 +1,5 @@
 ---
-title: The impact of parental educational attainment on mathematics achievement among high school students
+title: The effect of parental educational attainment on standardized mathematics scores among high school students
 
 author: "Eva Y."
 date: "2023-04-14"
@@ -14,7 +14,7 @@ editor_options:
 
 ## Description
 
-The purpose of this analysis is to investigate whether parental educational attainment has an impact on high school students' mathematics achievement measured by math scores of a standardized test.
+The purpose of this analysis is to investigate whether the highest level of parental educational attainment has an effect on high school students' mathematics achievement measured by math scores of a standardized test.
 
 ## Load data and dependencies
 
@@ -22,6 +22,7 @@ The purpose of this analysis is to investigate whether parental educational atta
 ```r
 library(data.table)
 library(ggplot2)
+library(lsr)
 ```
 
 
@@ -214,7 +215,7 @@ str(math_dat)
 ##  - attr(*, ".internal.selfref")=<externalptr>
 ```
 
-From here onwards, we will also work with a subset of the data since we are only focusing on parental level of education and math score.
+From here on wards, we will also work with a subset of the data since we are only focusing on parental level of education and math score.
 
 
 ```r
@@ -228,13 +229,14 @@ We will visualize the math scores for each category of parents' education level 
 
 ```r
 # plot boxplot
-ggplot(education_math, aes(x = parental_level_of_education, y = math_score, fill = parental_level_of_education)) + 
+ggplot(education_math, aes(x = parental_level_of_education, y = math_score)) + 
   geom_boxplot() +
   theme_bw() +
   theme(legend.position="none", 
         axis.title.x = element_text(size=14, face="bold"),
         axis.title.y = element_text(size=14, face="bold")) +
-  labs(x = "Parents' Level of Education", y = "Math Score")
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 4, color = "blue", fill ="blue") +
+  labs(x = "Parental Levels of Education", y = "Math Score")
 ```
 
 ![](math_score_analysis_files/figure-html/visualize data using boxplot-1.png)<!-- -->
@@ -262,7 +264,20 @@ summary(math.aov)
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-Based on this output, parents' level of education has a significant impact on the math scores of high school students. 
+Based on this output, parents' level of education has a significant impact on the math scores of high school students. Next, we will calculate the eta squared value to determine the effect size of the ANOVA model.
+
+
+```r
+# calculate eta squared value
+etaSquared(math.aov)
+```
+
+```
+##                                 eta.sq eta.sq.part
+## parental_level_of_education 0.02697516  0.02697516
+```
+
+The eta squared value ($\eta$^2 = .027) confirmed that the different parental levels of education accounted for 2.70% of the variability in math scores of the students. This effect size is quite small.
 
 Now, we need to perform a post-hoc test to determine pairwise comparisons. For the one-way ANOVA, we will be using the Tukey's HSD post-hoc test.
 
@@ -320,9 +335,11 @@ No significant differences in math scores were found between the following pairs
 
 ## Intepretation
 
-* A one-way ANOVA was conducted to examine the impact of parents' level of education on high school students' math scores in a standardized test. 
+* A one-way ANOVA was conducted to examine the effect of parental educational attainment on high school students' math scores in a standardized test. 
 
 * The ANOVA showed that the impact of parents' level of education on high school students' math scores was significant (*F*(5, 994) = 5.511, *p* < .05).
+
+* The eta squared value ($\eta$^2 = .027) confirmed that the different parental levels of education accounted for 2.70% of the variability in math scores of the students. This effect size is quite small.
 
 * A Tukey's HSD post-hoc test revealed that the mean math score of students whose parents completed some high school was significantly different than that of students whose parents completed some college, associate's degrees, bachelor's degrees, and master's degrees (*p* < .05). 
 
