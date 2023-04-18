@@ -556,6 +556,9 @@ summary(math.aov)</code></pre>
 impact on the math scores of high school students. Next, we will
 calculate the eta squared value to determine the effect size of the
 ANOVA model.</p>
+</div>
+<div id="effect-size" class="section level2">
+<h2>Effect size</h2>
 <pre class="r"><code># calculate eta squared value
 etaSquared(math.aov)</code></pre>
 <pre><code>##                                 eta.sq eta.sq.part
@@ -564,6 +567,9 @@ etaSquared(math.aov)</code></pre>
 .027) confirmed that the different parental levels of education
 accounted for 2.70% of the variability in math scores of the students.
 This effect size is quite small.</p>
+</div>
+<div id="tukeys-hsd-post-hoc-test" class="section level2">
+<h2>Tukey’s HSD post-hoc test</h2>
 <p>Now, we need to perform a post-hoc test to determine pairwise
 comparisons. For the one-way ANOVA, we will be using the Tukey’s HSD
 post-hoc test.</p>
